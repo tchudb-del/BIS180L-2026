@@ -1,0 +1,83 @@
+---
+title: "Assignment 3"
+output: html_document
+date: "2026-03-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercise 1: Use sum() to determine the sum of numbers from 2000 to 20000. Provide your code and the actual sum in your answer.
+
+```{r}
+sum(2000:20000)
+```
+
+## Exercise 2: In one or two sentences, describe what the above code snippet did.
+
+```{r}
+d<-"I just want to be deleted"
+d
+ls()
+#list the object "d"
+rm(d)
+#remove the object "d"
+```
+
+## Exercise 3: Add the contents of a and b together and place the results in a new object. Examine the result. Include your code. Try using both sum() and +; do you get different results? If so, why?
+
+```{r}
+a <- 5
+b <- 2:20
+
+c1 <- a + b
+c1
+
+c2 <- sum(a, b)
+c2
+
+#Using '+', R adds 'a' to each element of 'b', which gives a vector from 7 to 25.  
+#Using 'sum()', R adds all values in 'a' and 'b' together, which gives 214.  
+#The results are different because '+' performs element-wise addition, while 'sum()' returns one total.
+```
+
+## Exercise 4: What is the sum of the 5th through 10th element of object b? Provide your code and the sum.
+
+```{r}
+b <- 2:20
+sum(b[5:10])
+```
+
+## Exercise 5: What is the sum of the 3rd, 8th, and 10th element of b?
+
+```{r}
+b <- 2:20
+sum(b[c(3, 8, 10)])
+```
+
+## Exercise 6: When extracting from a 2-dimensional object, which number specifies rows and which specifies columns? What does m[3,] do? How can you extract the 3rd, 4th and 5th columns of m together as one object?
+
+```{r}
+m <- matrix(data = 1:25, ncol = 5, byrow = TRUE)
+m[3,1]
+m[, 3:5]
+
+#In 'm[row, column]', the first number gives the row and the second number gives the column.  
+#So 'm[3,1]' returns the value in the 3rd row and 1st column, which is 11.  
+#To extract the 3rd, 4th, and 5th columns together, use 'm[, 3:5]'.
+```
+
+## Exercise 7: What does the cbind command do? How about rbind? Create a new object “n” where the first row is a new row of numbers (your choice) and the following rows are the rows from matrix m. Optional: do the same but reverse the order of the rows from matrix m.
+
+```{r}
+new_col <- cbind(m, 101:105)
+new_col
+#The code above adds a new column to the right side of matrix 'm'. The new column contains the values 101, 102, 103, 104, and 105.
+
+n <- (50:54)
+new <- rbind(n, m)
+new
+#The code above creates a new object 'new' by adding a new row to the top of matrix 'm'.
+```
+
