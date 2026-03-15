@@ -1,41 +1,54 @@
 ---
 title: "GGplot"
 output: html_document
-date: "2026-03-06"
+date: "2026-03-14"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-```
-
 ```{r}
-height_data <- read_csv("height_data_clean.csv") %>%
+library(dplyr)
+library(lubridate)
+library(readr)
+library(ggplot2)
+data <- read_csv("height_data_clean.csv") %>%
   mutate(survey_date = as.Date(survey_date))
+
 ```
 
+
+## Plot height over time for each population
+
 ```{r}
-ggplot(height_data, aes(x = survey_date, y = height_cm, color = pop)) +
-  geom_line(aes(group = pop)) +
+height_trend <- data %>%
+  group_by(survey_date, pop) %>%
+  summarise(avg_height_cm = mean(height_cm, na.rm = TRUE), .groups = "drop")
+
+ggplot(height_trend, aes(x = survey_date, y = avg_height_cm, color = pop)) +
+  geom_line() +
+  geom_point() +
   labs(
-    title = "Height Over Time by Population",
+    title = "Average Height Over Time by Population",
     x = "Survey Date",
-    y = "Height (cm)",
+    y = "Average Height (cm)",
     color = "Population"
   )
 ```
 
+## Keep only January 27, 2023
+
 ```{r}
-jan27_data <- height_data %>%
+jan27_data <- data %>%
   filter(survey_date == as.Date("2023-01-27"))
 ```
 
+## Boxplot for each population on January 27, 2023
+
 ```{r}
-ggplot(jan27_data, aes(x = pop, y = height_cm)) +
+ggplot(jan27_data, aes(x = pop, y = height_cm, fill = pop)) +
   geom_boxplot() +
   labs(
-    title = "Height by Population on January 27, 2023",
+    title = "Height Distribution by Population on January 27, 2023",
     x = "Population",
     y = "Height (cm)"
-  )
+  ) +
+  theme(legend.position = "none")
 ```
