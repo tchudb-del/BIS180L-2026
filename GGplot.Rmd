@@ -49,6 +49,6 @@ ggplot(jan27_data, aes(x = pop, y = height_cm, fill = pop)) +
     title = "Height Distribution by Population on January 27, 2023",
     x = "Population",
     y = "Height (cm)"
-  ) +
-  theme(legend.position = "none")
+
+    )
 ```
